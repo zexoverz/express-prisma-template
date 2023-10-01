@@ -4,7 +4,7 @@
   "description": "Zexo Template BE app for building production-ready RESTful APIs using Express, by running one command",
   "bin": "bin/createNodejsApp.js",
   "main": "src/index.js",
-  "repository": "URL kalian",
+  "repository": "https://github.com/zexoverz/express-prisma-template",
   "author": "Faisal Firdani <faisalfirdani01@gmail.com>",
   "license": "MIT",
   "engines": {
