@@ -110,8 +110,8 @@ The environment variables can be found and modified in the `.env` file. They com
 # Port number
 PORT=3000
 
-# URL of the Mongo DB
-MONGODB_URL=mongodb://127.0.0.1:27017/node-boilerplate
+# URL of Database
+DB_URL="mysql://root:wFTbLxbCquKXIxDFfLwx@containers-us-west-174.railway.app:5858/railway?connect_timeout=300"
 
 # JWT
 # JWT secret key
@@ -120,14 +120,25 @@ JWT_SECRET=thisisasamplesecret
 JWT_ACCESS_EXPIRATION_MINUTES=30
 # Number of days after which a refresh token expires
 JWT_REFRESH_EXPIRATION_DAYS=30
+# Number of minutes after which a reset password token expires
+JWT_RESET_PASSWORD_EXPIRATION_MINUTES=10
+# Number of minutes after which a verify email token expires
+JWT_VERIFY_EMAIL_EXPIRATION_MINUTES=10
 
 # SMTP configuration options for the email service
 # For testing, you can use a fake SMTP service like Ethereal: https://ethereal.email/create
-SMTP_HOST=email-server
-SMTP_PORT=587
-SMTP_USERNAME=email-server-username
-SMTP_PASSWORD=email-server-password
-EMAIL_FROM=support@yourapp.com
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=465
+SMTP_USERNAME='aryuical@gmail.com'
+SMTP_PASSWORD='jzhnddxewrrbrbyw'
+EMAIL_FROM='aryuical@gmail.com'
+
+# This was inserted by `prisma init`:
+# Environment variables declared in this file are automatically made available to Prisma.
+# See the documentation for more detail: https://pris.ly/d/prisma-schema#accessing-environment-variables-from-the-schema
+
+# Prisma supports the native connection string format for PostgreSQL, MySQL, SQLite, SQL Server, MongoDB and CockroachDB.
+# See the documentation for all the connection string options: https://pris.ly/d/connection-strings
 ```
 
 ## Project Structure
