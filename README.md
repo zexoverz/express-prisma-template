@@ -15,7 +15,7 @@ If you would still prefer to do the installation manually, follow these steps:
 Clone the repo:
 
 ```bash
-git clone --depth 1 https://github.com/novatechid/nova-be-cms.git
+git clone --depth 1 https://github.com/zexoverz/express-prisma-template
 cd nova-be-cms
 npx rimraf ./.git
 ```
