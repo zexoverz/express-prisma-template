@@ -111,7 +111,8 @@ The environment variables can be found and modified in the `.env` file. They com
 PORT=3000
 
 # URL of Database
-DB_URL="mysql://root:wFTbLxbCquKXIxDFfLwx@containers-us-west-174.railway.app:5858/railway?connect_timeout=300"
+DB_URL="postgresql://root:wFTbLxbCquKXIxDFfLwx@containers-us-west-174.railway.app:5858/railway?connect_timeout=300"
+TEST_DB_URL="postgresql"
 
 # JWT
 # JWT secret key
