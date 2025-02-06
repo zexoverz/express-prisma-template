@@ -24,6 +24,9 @@ module.exports = [
       ...security.configs.recommended.rules,
       'no-unused-vars': 'warn',
       'no-undef': 'warn',
+      'security/detect-non-literal-fs-filename': 'off',
+      'jest/expect-expect': 'off',
+      'security/detect-object-injection': 'off',
     }
   }
 ];

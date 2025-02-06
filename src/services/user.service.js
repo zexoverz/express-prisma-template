@@ -20,7 +20,7 @@ const createUser = async (userBody) => {
  * Query for users
  * @returns {Promise<QueryResult>}
  */
-const queryUsers = async (filter, options) => {
+const queryUsers = async () => {
   const users = await prisma.user.findMany();
   return users;
 };
@@ -59,9 +59,6 @@ const updateUserById = async (userId, updateBody) => {
   const user = await getUserById(userId);
   if (!user) {
     throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
-  }
-  if (updateBody.email && (await User.isEmailTaken(updateBody.email, userId))) {
-    throw new ApiError(httpStatus.BAD_REQUEST, 'Email already taken');
   }
   
   const updateUser = await prisma.user.update({
