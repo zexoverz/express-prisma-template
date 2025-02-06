@@ -1,27 +1,29 @@
-const pluginJs = require("@eslint/js") ;
+const globals = require('globals');
+const js = require('@eslint/js');
+const jest = require('eslint-plugin-jest');
+const security = require('eslint-plugin-security');
 
 module.exports = [
-    pluginJs.configs.recommended,
-    
-   {
-       rules: {
-           "no-unused-vars": "warn",
-           "no-undef": "warn"
-       }
-       ,
-       env: {
-        node: true,
-        jest: true
-      },
-      extends: [
-        'airbnb-base', 
-        'plugin:jest/recommended', 
-        'plugin:security/recommended', 
-        'plugin:prettier/recommended'
-      ],
-      plugins: ['jest', 'security', 'prettier'],
-      parserOptions: {
-        ecmaVersion: 2018
-      },
-   }
+  {
+    files: ['**/*.js'],
+    languageOptions: {
+      ecmaVersion: 'latest',
+      sourceType: 'module',
+      globals: {
+        ...globals.node,
+        ...globals.jest
+      }
+    },
+    plugins: {
+      jest,
+      security
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      ...jest.configs.recommended.rules,
+      ...security.configs.recommended.rules,
+      'no-unused-vars': 'warn',
+      'no-undef': 'warn',
+    }
+  }
 ];
