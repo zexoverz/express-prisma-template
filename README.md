@@ -16,7 +16,7 @@ Clone the repo:
 
 ```bash
 git clone --depth 1 https://github.com/zexoverz/express-prisma-template
-cd nova-be-cms
+cd express-prisma-template
 npx rimraf ./.git
 ```
 
