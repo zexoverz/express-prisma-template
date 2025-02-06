@@ -18,7 +18,7 @@
     "prettier": "prettier --check **/*.js",
     "prettier:fix": "prettier --write **/*.js",
     "prepare": "husky",
-    "seed": "node prisma/seeds/index.js",
+    "seed": "NODE_ENV=development node prisma/seeds/index.js",
     "test": "jest -i --colors --verbose --detectOpenHandles",
     "test:watch": "jest -i --watchAll",
     "coverage": "jest -i --coverage",
