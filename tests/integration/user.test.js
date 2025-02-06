@@ -5,8 +5,7 @@ const { v4 } = require('uuid');
 const app = require('../../src/app');
 const { admin, insertUsers, userOne } = require('../fixtures/user.fixture');
 const { adminAccessToken, userOneAccessToken } = require('../fixtures/token.fixture');
-const prisma = require('../../prisma/client');
-
+const prisma = require('../../prisma')
 describe('user routes', () => {
   let newUser;
   beforeEach(async () => {

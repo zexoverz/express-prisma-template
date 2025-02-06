@@ -1,2 +1,2 @@
-jest.mock('./prisma/client');
+jest.mock('./prisma/index');
 jest.setTimeout(30000);

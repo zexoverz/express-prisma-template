@@ -3,12 +3,11 @@ const { execSync } = require('child_process')
 const { join } = require('path')
 
 const generateDatabaseURL = () => {
-  if (!process.env.DATABASE_URL) {
+  if (!process.env.TEST_DB_URL) {
     throw new Error('please provide a database url');
   }
-  let url = process.env.DATABASE_URL
+  let url = process.env.TEST_DB_URL
 
-  url = url.replace("/railway", "/testingDb")
   return url
 };
 
@@ -17,7 +16,7 @@ const prismaBinary = join(__dirname, '..', '..', 'node_modules', '.bin', 'prisma
 
 let url = generateDatabaseURL()
 
-process.env.DATABASE_URL = url;
+process.env.DB_URL = url;
 
 const prisma = new PrismaClient({
   datasources: { db: { url } },
@@ -38,7 +37,6 @@ beforeEach(async () => {
 });
 
 afterAll(async () => {
-    await prisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS testingDb`);
     await prisma.$disconnect();
 });
 

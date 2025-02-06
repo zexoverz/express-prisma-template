@@ -5,7 +5,7 @@ const config = require('../config/config');
 const userService = require('./user.service');
 const ApiError = require('../utils/ApiError');
 const { tokenTypes } = require('../config/tokens');
-const prisma = require('../../prisma/client')
+const prisma = require('../../prisma')
 
 /**
  * Generate token
