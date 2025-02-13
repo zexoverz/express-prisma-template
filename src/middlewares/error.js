@@ -1,4 +1,4 @@
-const httpStatus = require('http-status');
+const {status} = require('http-status');
 const config = require('../config/config');
 const logger = require('../config/logger');
 const ApiError = require('../utils/ApiError');
@@ -23,7 +23,7 @@ const errorConverter = (err, req, res, next) => {
     }else{
       // Handling Global Error
       const statusCode = error.statusCode
-      const message = error.message || httpStatus[statusCode];
+      const message = error.message || status[statusCode];
       error = new ApiError(statusCode, message, false, err.stack);
     }
   }
@@ -51,8 +51,8 @@ const handlePrismaError = (err) => {
 const errorHandler = (err, req, res, next) => {
   let { statusCode, message } = err;
   if (config.env === 'production' && !err.isOperational) {
-    statusCode = httpStatus.INTERNAL_SERVER_ERROR;
-    message = httpStatus[httpStatus.INTERNAL_SERVER_ERROR];
+    statusCode = status.INTERNAL_SERVER_ERROR;
+    message = status[status.INTERNAL_SERVER_ERROR];
   }
 
   res.locals.errorMessage = err.message;

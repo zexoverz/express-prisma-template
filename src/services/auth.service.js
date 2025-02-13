@@ -1,4 +1,4 @@
-const httpStatus = require('http-status');
+const {status} = require('http-status');
 const tokenService = require('./token.service');
 const userService = require('./user.service');
 const prisma = require('../../prisma')
@@ -17,7 +17,7 @@ const loginUserWithEmailAndPassword = async (email, password) => {
   const validPassword = await bcrypt.compare(password, user.password);
 
   if (!user || !validPassword) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Incorrect email or password');
+    throw new ApiError(status.UNAUTHORIZED, 'Incorrect email or password');
   }
   return user;
 };
@@ -32,7 +32,7 @@ const logout = async (refreshToken) => {
     where: { token: refreshToken, type: tokenTypes.REFRESH, blacklisted: false }
   });
   if (!refreshTokenDoc) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'Not found');
+    throw new ApiError(status.NOT_FOUND, 'Not found');
   }
   await prisma.token.delete({where: {id: refreshTokenDoc.id}})
 };
@@ -55,7 +55,7 @@ const refreshAuth = async (refreshToken) => {
     return tokenService.generateAuthTokens(user);
   } catch (error) {
     console.log(error)
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Please authenticate');
+    throw new ApiError(status.UNAUTHORIZED, 'Please authenticate');
   }
 };
 
@@ -77,7 +77,7 @@ const resetPassword = async (resetPasswordToken, newPassword) => {
       where: { userId: user.id, type: tokenTypes.RESET_PASSWORD }
     });
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Password reset failed');
+    throw new ApiError(status.UNAUTHORIZED, 'Password reset failed');
   }
 };
 
@@ -98,7 +98,7 @@ const verifyEmail = async (verifyEmailToken) => {
     });
     await userService.updateUserById(user.id, { isEmailVerified: true });
   } catch (error) {
-    throw new ApiError(httpStatus.UNAUTHORIZED, 'Email verification failed');
+    throw new ApiError(status.UNAUTHORIZED, 'Email verification failed');
   }
 };
 

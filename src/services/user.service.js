@@ -1,4 +1,4 @@
-const httpStatus = require('http-status');
+const {status} = require('http-status');
 const prisma = require('../../prisma')
 const ApiError = require('../utils/ApiError');
 const bcrypt = require('bcryptjs');
@@ -58,7 +58,7 @@ const getUserByEmail = async (email) => {
 const updateUserById = async (userId, updateBody) => {
   const user = await getUserById(userId);
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    throw new ApiError(status.NOT_FOUND, 'User not found');
   }
   
   const updateUser = await prisma.user.update({
@@ -79,7 +79,7 @@ const updateUserById = async (userId, updateBody) => {
 const deleteUserById = async (userId) => {
   const user = await getUserById(userId);
   if (!user) {
-    throw new ApiError(httpStatus.NOT_FOUND, 'User not found');
+    throw new ApiError(status.NOT_FOUND, 'User not found');
   }
 
   const deleteUsers = await prisma.user.deleteMany({

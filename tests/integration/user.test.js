@@ -1,6 +1,6 @@
 const request = require('supertest');
 const { faker } = require('faker');
-const httpStatus = require('http-status');
+const {status} = require('http-status');
 const { v4 } = require('uuid');
 const app = require('../../src/app');
 const { admin, insertUsers, userOne } = require('../fixtures/user.fixture');
@@ -20,7 +20,7 @@ describe('user routes', () => {
 
   describe('GET /users', () => {
     test('should return 200 OK if success get users', async () => {
-      await request(app).get('/users').set('Authorization', `Bearer ${adminAccessToken}`).expect(httpStatus.OK);
+      await request(app).get('/users').set('Authorization', `Bearer ${adminAccessToken}`).expect(status.OK);
     });
   });
 
@@ -31,7 +31,7 @@ describe('user routes', () => {
       await request(app)
         .get(`/users/${userOne.id}`)
         .set('Authorization', `Bearer ${adminAccessToken}`)
-        .expect(httpStatus.OK);
+        .expect(status.OK);
     });
 
     test('Should return 200 and success update users by id', async () => {
@@ -43,7 +43,7 @@ describe('user routes', () => {
         .patch(`/users/${userOne.id}`)
         .set('Authorization', `Bearer ${adminAccessToken}`)
         .send(newUser)
-        .expect(httpStatus.OK);
+        .expect(status.OK);
 
       const userData = res.body.data;
 
@@ -70,7 +70,7 @@ describe('user routes', () => {
       await request(app)
         .delete(`/users/${userOne.id}`)
         .set('Authorization', `Bearer ${adminAccessToken}`)
-        .expect(httpStatus.OK);
+        .expect(status.OK);
     });
   });
 
@@ -79,11 +79,11 @@ describe('user routes', () => {
       await request(app)
         .get(`/users/noValidId`)
         .set('Authorization', `Bearer ${adminAccessToken}`)
-        .expect(httpStatus.BAD_REQUEST);
+        .expect(status.BAD_REQUEST);
     });
 
     test('should return 401 UNAUTHORIZED if no access token', async () => {
-      await request(app).get(`/user`).send(newUser).expect(httpStatus.UNAUTHORIZED);
+      await request(app).get(`/user`).send(newUser).expect(status.UNAUTHORIZED);
     });
 
     test('should return 403 FORBIDDEN if doesnt has admin access', async () => {
@@ -91,11 +91,11 @@ describe('user routes', () => {
         .get(`/user`)
         .set('Authorization', `Bearer ${userOneAccessToken}`)
         .send(newUser)
-        .expect(httpStatus.FORBIDDEN);
+        .expect(status.FORBIDDEN);
     });
 
     test('should return 404 NOT_FOUND if no user is found', async () => {
-      await request(app).get(`/users/${v4}`).set('Authorization', `Bearer ${adminAccessToken}`).expect(httpStatus.NOT_FOUND);
+      await request(app).get(`/users/${v4}`).set('Authorization', `Bearer ${adminAccessToken}`).expect(status.NOT_FOUND);
     });
   });
 });
