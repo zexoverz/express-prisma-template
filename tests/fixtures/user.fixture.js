@@ -1,5 +1,5 @@
 const bcrypt = require('bcryptjs');
-const faker = require('faker');
+const {faker} = require('faker');
 const { v4 } = require('uuid');
 const prisma = require('../../prisma');
 
