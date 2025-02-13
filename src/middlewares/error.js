@@ -18,7 +18,7 @@ const errorConverter = (err, req, res, next) => {
     }else if(err instanceof Prisma.PrismaClientKnownRequestError){
       // Handling Prisma Error
       logger.info("handlePrismaError")
-      error = handlePrismaError(err);
+      error = handlePrismaClientError(err);
     }else if (err instanceof Prisma.PrismaClientInitializationError) {
       // Handle initialization errors (e.g., connection issues)
       error = new ApiError(500, `Prisma Initialization Error: Database Connection Issues`)
@@ -36,7 +36,7 @@ const errorConverter = (err, req, res, next) => {
   next(error);
 };
 
-const handlePrismaError = (err) => {
+const handlePrismaClientError = (err) => {
   switch (err.code) {
       case 'P2002':
           // handling duplicate key errors
