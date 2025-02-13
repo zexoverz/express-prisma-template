@@ -7,7 +7,6 @@ const { Prisma } = require('@prisma/client')
 const errorConverter = (err, req, res, next) => {
   let error = err;
   if (!(error instanceof ApiError)) {
-
     // if error from axios or http request
     if(error.response){
       const message = err.response.data.message || err.response.data
@@ -20,7 +19,14 @@ const errorConverter = (err, req, res, next) => {
       // Handling Prisma Error
       logger.info("handlePrismaError")
       error = handlePrismaError(err);
-    }else{
+    }else if (err instanceof Prisma.PrismaClientInitializationError) {
+      // Handle initialization errors (e.g., connection issues)
+      error = new ApiError(500, `Prisma Initialization Error: Database Connection Issues`)
+    } else if (err instanceof Prisma.PrismaClientValidationError) {
+      // Handle validation errors (e.g., invalid input data)
+      console.error(':', err.message);
+      error = new ApiError(500, `Prisma Validation Error: Invalid Input Data`)
+    } else{
       // Handling Global Error
       const statusCode = error.statusCode
       const message = error.message || status[statusCode];
